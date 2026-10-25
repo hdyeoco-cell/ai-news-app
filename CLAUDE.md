@@ -21,7 +21,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `npm run build` / `npm run start` — 프로덕션 빌드/실행
 - `npm run lint` — ESLint
 - `npx tsc --noEmit` — 타입 검사. `npm run build`와 함께 PRD 성공 기준이므로 변경 후 둘 다 통과시킨다.
-- `npx drizzle-kit push` — `src/db/schema.ts`를 DB에 반영 (마이그레이션 파일 없이 push 방식). 스키마 변경 시 필수이며, 현재 `obsidian_path` 컬럼 포함 push가 아직 안 됐다.
+- `npx drizzle-kit push` — `src/db/schema.ts`를 DB에 반영 (마이그레이션 파일 없이 push 방식). 스키마 변경 시 필수. 현재 `obsidian_path` 컬럼 포함 전체 스키마가 Neon에 반영돼 있다.
 - 테스트 러너는 없다. 검증은 PRD 10절의 수동 시나리오로 한다.
 
 ## 환경 변수 (`.env.local`, 템플릿은 `.env.example`)
