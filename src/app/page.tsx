@@ -1,3 +1,4 @@
+import { Show, SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
 import { desc, eq } from "drizzle-orm";
 import Link from "next/link";
 import { Suspense } from "react";
@@ -51,7 +52,18 @@ export default function Home({ searchParams }: { searchParams: SearchParams }) {
     <main className="mx-auto max-w-6xl px-4 py-8">
       <header className="mb-6 flex flex-wrap items-center justify-between gap-4">
         <h1 className="text-2xl font-bold">AI 뉴스 수집기</h1>
-        <CollectButton />
+        <div className="flex items-center gap-3">
+          <CollectButton />
+          <Suspense>
+            <Show when="signed-out">
+              <SignInButton />
+              <SignUpButton />
+            </Show>
+            <Show when="signed-in">
+              <UserButton />
+            </Show>
+          </Suspense>
+        </div>
       </header>
       <Suspense fallback={<p className="py-20 text-center text-zinc-500">불러오는 중...</p>}>
         <Feed searchParams={searchParams} />

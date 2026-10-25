@@ -9,7 +9,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## 범위 (PRD 4절)
 - MVP와 Obsidian 저장은 코드 작성·빌드 완료, **실제 키/DB로 end-to-end 검증 전** 상태다.
-- 제외/이후 단계: Clerk 인증, Cron 자동 수집(Vercel 배포 시). Notion 저장은 Obsidian으로 대체되어 폐기됐으니 되살리지 말 것.
+- 진행 중(`auth` 브랜치): Clerk 인증. 로그인/가입 페이지, `src/proxy.ts`, 헤더 버튼까지 설치됐고 라우트 보호 범위는 미정이다.
+- 제외/이후 단계: Cron 자동 수집(Vercel 배포 시). Notion 저장은 Obsidian으로 대체되어 폐기됐으니 되살리지 말 것.
 - 비용 통제가 설계 원칙이다. 수집 1회 최대 15건, Claude 동시 4개, 수집 API `maxDuration = 300`. 이 한도를 늘리기 전에 사용자에게 확인한다.
 
 ## Next.js 주의
