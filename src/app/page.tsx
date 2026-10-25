@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { ArticleCard } from "@/components/ArticleCard";
 import { CollectButton } from "@/components/CollectButton";
+import { SignInGate } from "@/components/SignInGate";
 import { db } from "@/db";
 import { articles } from "@/db/schema";
 import { CATEGORIES } from "@/lib/categories";
@@ -53,20 +54,25 @@ export default function Home({ searchParams }: { searchParams: SearchParams }) {
       <header className="mb-6 flex flex-wrap items-center justify-between gap-4">
         <h1 className="text-2xl font-bold">AI 뉴스 수집기</h1>
         <div className="flex items-center gap-3">
-          <CollectButton />
           <Suspense>
-            <Show when="signed-out">
-              <SignInButton />
-              <SignUpButton />
-            </Show>
             <Show when="signed-in">
+              <CollectButton />
               <UserButton />
+            </Show>
+            <Show when="signed-out">
+              <SignInButton mode="modal" />
+              <SignUpButton mode="modal" />
             </Show>
           </Suspense>
         </div>
       </header>
       <Suspense fallback={<p className="py-20 text-center text-zinc-500">불러오는 중...</p>}>
-        <Feed searchParams={searchParams} />
+        <Show when="signed-in">
+          <Feed searchParams={searchParams} />
+        </Show>
+        <Show when="signed-out">
+          <SignInGate />
+        </Show>
       </Suspense>
     </main>
   );
