@@ -6,6 +6,7 @@ export const articles = pgTable("articles", {
   source: text("source").notNull(),
   title: text("title").notNull(),
   link: text("link").notNull(),
+  author: text("author"),
   publishedAt: timestamp("published_at"),
   titleKo: text("title_ko").notNull(),
   summaryKo: text("summary_ko").notNull(),

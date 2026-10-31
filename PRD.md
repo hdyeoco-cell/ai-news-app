@@ -54,7 +54,7 @@ Notion 아카이빙을 대체한다.
 |---|---|
 | id | PK |
 | guid | RSS guid (unique) |
-| source / title / link / published_at | 원본 메타데이터 |
+| source / title / link / author / published_at | 원본 메타데이터 (author는 RSS `dc:creator`, 없으면 null) |
 | title_ko / summary_ko / category | Claude 처리 결과 |
 | obsidian_path | 저장된 노트의 볼트 기준 상대 경로 (null이면 미저장) |
 | created_at | 수집 시각 |

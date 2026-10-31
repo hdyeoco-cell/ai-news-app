@@ -13,6 +13,7 @@ export type RawArticle = {
   source: string;
   title: string;
   link: string;
+  author: string | null;
   content: string;
   publishedAt: Date | null;
 };
@@ -33,6 +34,7 @@ export async function fetchAllFeeds(): Promise<{ articles: RawArticle[]; failed:
             source,
             title,
             link,
+            author: item.creator?.trim() || null,
             content: (item.contentSnippet || item.content || "").slice(0, 3000),
             publishedAt: item.isoDate ? new Date(item.isoDate) : null,
           },

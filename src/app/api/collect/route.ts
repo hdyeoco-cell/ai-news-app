@@ -30,6 +30,7 @@ export async function POST() {
           source: raw.source,
           title: raw.title,
           link: raw.link,
+          author: raw.author,
           publishedAt: raw.publishedAt,
           ...result,
         })),
