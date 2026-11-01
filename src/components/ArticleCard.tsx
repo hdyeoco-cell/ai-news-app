@@ -35,7 +35,6 @@ export function ArticleCard({ article: a }: { article: Article }) {
           <SaveButton id={a.id} />
         )}
       </div>
-      <p className="text-xs text-zinc-400">{a.title}</p>
     </article>
   );
 }

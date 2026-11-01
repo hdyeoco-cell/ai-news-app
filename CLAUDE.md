@@ -13,6 +13,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - 제외/이후 단계: Cron 자동 수집(Vercel 배포 시). Notion 저장은 Obsidian으로 대체되어 폐기됐으니 되살리지 말 것.
 - 비용 통제가 설계 원칙이다. 수집 1회 최대 15건, Claude 동시 4개, 수집 API `maxDuration = 300`. 이 한도를 늘리기 전에 사용자에게 확인한다.
 
+## UI 가이드
+화면(레이아웃, 카테고리 바, 뉴스 카드, 버튼, 색상·타이포그래피 등 Tailwind 스타일 규칙)을 만들거나 고칠 때는 먼저 `ui.md`를 읽고 따른다. 새 스타일 규칙이 생기면 `ui.md`도 함께 갱신한다.
+
 ## Next.js 주의
 `AGENTS.md`에 있듯 이 Next.js(16.x)는 기존 지식과 API/규칙이 다를 수 있다. 코드를 쓰기 전 `node_modules/next/dist/docs/`의 해당 가이드를 읽는다. `cacheComponents`가 켜져 있어, 요청 시점 데이터(`searchParams`, DB 조회)는 `<Suspense>` 안에서 읽어야 한다 (`src/app/page.tsx` 참고).
 
