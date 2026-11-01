@@ -51,6 +51,7 @@ AI 뉴스 수집기의 화면 구성과 Tailwind CSS 스타일 규칙이다. 새
 - 컨테이너: `<main className="mx-auto max-w-6xl px-4 py-8">`
 - 헤더: `mb-6 flex flex-wrap items-center justify-between gap-4` (좁은 화면에서 줄바꿈)
 - 로그인 상태에 따라 헤더 우측이 바뀐다. 로그인: `CollectButton` + `UserButton`, 비로그인: 로그인/가입 버튼.
+- 대시보드(`/dashboard`) 헤더에는 `← 전체 목록` 옆에 `FetchNewsButton`("뉴스 가져오기")이 `UserButton` 앞에 놓인다. 스타일은 7절 주 버튼과 같다.
 - 비로그인이면 카테고리 바와 카드 목록 대신 `SignInGate`가 렌더된다.
 
 ## 5. 카테고리 바 (뉴스 카드 목록 바로 위)
@@ -119,6 +120,13 @@ AI 뉴스 수집기의 화면 구성과 Tailwind CSS 스타일 규칙이다. 새
 
 ### 카드 그리드
 `grid gap-4 sm:grid-cols-2 lg:grid-cols-3` — 모바일 1열, `sm` 2열, `lg` 3열.
+
+### 페이지 나누기
+`src/components/Pagination.tsx`. 대시보드는 한 페이지에 카드 **9개**(`PAGE_SIZE`)씩 보여주고, `?page=N`으로 이동한다(1페이지는 쿼리 없음).
+- 위치: 카드 그리드 아래 `mt-8`, 가운데 정렬. `이전` · 페이지 번호 · `다음`.
+- 스타일: 탭(5절)과 같은 알약. 현재 페이지는 `bg-blue-600 text-white` + `aria-current="page"`, 첫/끝 페이지에서 이전/다음은 `opacity-50` 비활성.
+- 번호는 현재 페이지 앞뒤 2개 + 처음/끝만 보이고 사이는 `…`.
+- 범위를 벗어났거나 잘못된 `page` 값은 가장 가까운 유효 페이지로 보정한다. 페이지가 1개뿐이면 렌더하지 않는다.
 
 ## 7. 버튼
 

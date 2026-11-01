@@ -95,6 +95,8 @@ Notion 아카이빙을 대체한다.
 - [x] 실제 키/DB/볼트로 end-to-end 검증 (수집 15건 저장, Obsidian 노트 생성, 중복 저장 방지 확인)
 - [x] 수집 버튼에 처리 실패 건수·원인 안내 표시 (`CollectButton`)
 - [x] 즉시 재수집 시 신규 0건인지 확인 (2026-10-24: 3회 연속 호출 → 15건 → 5건(이월분) → 0건, 중복 20건 스킵)
+- [x] 대시보드 '뉴스 가져오기' 코드 작성 (`rss_items`, `POST /api/rss/fetch`, `FetchNewsButton`; 최근 24시간, TechCrunch·The Verge, URL 기준 중복 제거, `summary`는 RSS 원문 스니펫 임시값)
+- [ ] `npx drizzle-kit push`로 `rss_items` 테이블 반영 후 end-to-end 검증 (재클릭 시 0건, URL 변형 중복 처리)
 - [ ] 일지 기록 및 `/skill-harvest`
 
 검증 중 발견한 사항: `cacheComponents`가 켜져 있으면 라우트의 `export const runtime = ...`는 빌드 에러가 난다 (Node 런타임이 기본값이라 불필요). API 크레딧이 없으면 모든 기사 처리가 실패하고 0건 저장으로 보인다.

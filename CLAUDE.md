@@ -44,5 +44,6 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **RSS (`lib/rss.ts`)**: 피드 목록은 `FEEDS` 상수 한 곳에서 관리 (피드당 10건). URL이 바뀌거나 막히면 여기서 고친다.
 - **AI (`lib/claude.ts`)**: 기사당 Claude 1회 호출, 응답에서 JSON을 잘라내 `zod`로 검증(`resultSchema`). 검증 실패 기사는 건너뛴다. 카테고리 7종(LLM/생성AI, 로보틱스, 이미지/영상AI, AI 칩/인프라, 정책/규제, 비즈니스/투자, 기타)은 `lib/categories.ts`의 `CATEGORIES`가 프롬프트·검증·UI 탭의 단일 출처다.
 - **Obsidian (`lib/obsidian.ts`, `POST /api/articles/[id]/obsidian`)**: 볼트 폴더에 `fs`로 직접 쓰기라 **로컬 실행 전용**(서버리스 불가, 배포 시 REST API 방식 재검토). 노트는 YAML frontmatter(title, source, category, published, url, tags) + 한국어 제목/요약 + 원문 링크 + 원제목. 안전장치: 파일명 금지 문자 정리, `flag: "wx"` + `-2` 접미사로 덮어쓰기 금지, 볼트 밖 경로 차단, 저장 후 `articles.obsidian_path`(볼트 상대 경로, null이면 미저장)로 중복 저장 방지, 경로 미설정 시 안내 메시지.
-- **DB (`src/db`)**: Neon HTTP 드라이버 + Drizzle, 테이블은 `articles` 하나 (PRD 6절에 컬럼 설명).
+- **DB (`src/db`)**: Neon HTTP 드라이버 + Drizzle, 테이블은 `articles`(Claude 처리 완료 기사)와 `rss_items`(RSS 원문, AI 필드 없음). 컬럼 설명은 PRD 6절(`rss_items`는 `schema.ts` 참고).
+- **뉴스 가져오기 (`POST /api/rss/fetch`, `fetchRecentFeeds`)**: 대시보드 버튼 → TechCrunch·The Verge에서 최근 24시간 기사(피드당 개수 제한 없음, `publishedAt` 없으면 제외)를 `rss_items`에 저장. Claude는 호출하지 않으므로 15건 한도와 무관. 중복은 `normalizeUrl()`로 정규화한 `link`의 unique 제약(`onConflictDoNothing`)으로 막는다. `summary`는 RSS 원문 스니펫(최대 500자) 임시값이며 `articles`와 섞지 말 것(`/api/collect`는 `articles.guid`로만 처리 완료를 판정).
 - 경로 별칭 `@/` = `src/`.
