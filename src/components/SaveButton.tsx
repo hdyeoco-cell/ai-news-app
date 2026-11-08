@@ -13,8 +13,8 @@ export function SaveButton({ id }: { id: number }) {
     setError("");
     try {
       const res = await fetch(`/api/articles/${id}/obsidian`, { method: "POST" });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error ?? "저장 실패");
+      const data = await res.json().catch(() => null);
+      if (!res.ok) throw new Error(data?.error ?? `저장 실패 (서버 응답 ${res.status}, JSON 아님)`);
       router.refresh();
     } catch (e) {
       setError(e instanceof Error ? e.message : "저장 실패");

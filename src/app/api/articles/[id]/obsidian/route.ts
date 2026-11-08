@@ -8,11 +8,11 @@ export async function POST(_req: Request, { params }: { params: Promise<{ id: st
   const id = Number((await params).id);
   if (!Number.isInteger(id)) return NextResponse.json({ error: "잘못된 id입니다." }, { status: 400 });
 
-  const [article] = await db.select().from(articles).where(eq(articles.id, id));
-  if (!article) return NextResponse.json({ error: "기사를 찾을 수 없습니다." }, { status: 404 });
-  if (article.obsidianPath) return NextResponse.json({ path: article.obsidianPath, alreadySaved: true });
-
   try {
+    const [article] = await db.select().from(articles).where(eq(articles.id, id));
+    if (!article) return NextResponse.json({ error: "기사를 찾을 수 없습니다." }, { status: 404 });
+    if (article.obsidianPath) return NextResponse.json({ path: article.obsidianPath, alreadySaved: true });
+
     const notePath = await saveToObsidian(article);
     await db.update(articles).set({ obsidianPath: notePath }).where(eq(articles.id, id));
     return NextResponse.json({ path: notePath, alreadySaved: false });
