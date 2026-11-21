@@ -99,6 +99,12 @@ AI 뉴스 수집기의 화면 구성과 Tailwind CSS 스타일 규칙이다. 새
 - 클릭 시 동작(입력 모달/인라인 입력 등)은 구현 단계에서 정한다. 이 문서는 위치와 모양만 규정한다.
 - 주의: 현재 카테고리 7종은 프롬프트·검증·탭이 `CATEGORIES` 하나를 공유한다. 사용자 정의 카테고리를 허용하려면 `lib/claude.ts`의 분류 프롬프트와 zod 검증까지 함께 바꿔야 하므로, 동작을 붙이기 전에 범위를 확인한다.
 
+### 5.2 검색창 (카테고리 바와 같은 줄, 오른쪽)
+`src/components/SearchForm.tsx`. 일반 GET 폼(`action="/"`)이라 '검색' 버튼 클릭과 Enter 모두 `/?q=키워드`로 이동하고, 서버 컴포넌트가 `articles`의 `title_ko`·`summary_ko`·`title`을 대소문자 무시(`ilike`)로 필터링한다.
+- 배치: 카테고리 `<nav>`와 검색 폼을 `mb-6 flex flex-wrap items-center justify-between gap-x-4 gap-y-3` 래퍼로 묶어 검색창을 오른쪽 끝에 둔다(좁은 화면에서는 아래 줄로 줄바꿈). 폼: `flex items-center gap-2`. 입력창: `w-56 rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm focus:border-blue-500 dark:border-zinc-800 dark:bg-zinc-900`. 버튼은 7절 주 버튼.
+- 검색어가 있으면 '초기화' 링크(`text-sm text-zinc-500`)가 나타난다. 카테고리와 검색어는 함께 유지된다(AND).
+- 결과 없음: "'키워드'에 대한 검색 결과가 없습니다."
+
 ## 6. 뉴스 카드
 
 `src/components/ArticleCard.tsx` 기준.

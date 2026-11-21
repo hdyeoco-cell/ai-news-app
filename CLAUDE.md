@@ -27,6 +27,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `npx drizzle-kit push` — `src/db/schema.ts`를 DB에 반영 (마이그레이션 파일 없이 push 방식). 스키마 변경 시 필수. 현재 `obsidian_path` 컬럼 포함 전체 스키마가 Neon에 반영돼 있다.
 - 테스트 러너는 없다. 검증은 PRD 10절의 수동 시나리오로 한다.
 
+## 슬래시 명령 (`.claude/commands/`)
+- `/news-workflow <브랜치이름>` — 새 기능 개발 워크플로. main 확인 → 브랜치 생성(이름이 없으면 기능을 묻고 영어 소문자-하이픈 이름 제안) → 개발 → "완료"/"done" 입력 시 변경 파일 목록·커밋 메시지 제안 → 확인 후 커밋하고 main에 병합 → 작업 요약. 새 기능 개발은 이 명령으로 시작한다.
+
 ## 환경 변수 (`.env.local`, 템플릿은 `.env.example`)
 | 변수 | 비고 |
 |---|---|
